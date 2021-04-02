@@ -1,0 +1,24 @@
+.vertical-scrollable > .row {
+    position: relative;
+    height: 50em;
+    width:80%;
+    margin-left: 10%;
+    overflow-y: scroll; 
+  }
+.col-sm-12 { 
+      font-size:13px;
+      padding-bottom: 20px; 
+      padding-top: 18px; 
+      transform: scale(0.85);
+  } 
+  
+  /*
+  .col-sm-12:nth-child(2n+1) { 
+      background: green; 
+  } 
+    
+  .col-sm-12:nth-child(2n+2) { 
+      background: black; 
+  } 
+  */
+  

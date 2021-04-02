@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="jumbotron text-center" >     
+        <h1>2020 Presidential Election Parser</h1> 
+        <h2>Race Data:</h2>   
+        <p>{{ raceData.raceId }}</p>
+        <p>{{ raceData.raceSlug }}</p>
+        <p>{{ raceData.raceUrl }}</p>
+    </div>        
+</div>     
+<div class="loader"></div>  
+<div id = "results_table">   
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="example" class="display row-border hover"  style='width:80%;'>
+        <thead> 
+            <tr>
+                <th class="th-sm" *ngFor="let header of headers">{{header}}</th>
+            </tr>
+        </thead>
+        <tbody>      
+            <tr *ngFor = "let row of thePresVotes">
+                <td>{{ row.index }}</td> 
+                <td>{{ row.bidenj }}</td> 
+                <td>{{ row.biden_votes }}</td> 
+                <td>{{ row.trumpd }}</td> 
+                <td>{{ row.trump_votes }}</td>  
+                <td>{{ row.other_votes }}</td> 
+                <td>{{ row.timestamp }}</td>
+                <td>{{ row.votes }}</td>  
+                <td>{{ row.vote_add }}</td> 
+                <td>{{ row.trump_added }}</td>
+                <td>{{ row.biden_added }}</td>
+                <td>{{ row.remaining_percent_biden }}</td>  
+                <td>{{ row.remaining_percent_trump }}</td>  
+            </tr>  
+        </tbody>
+    </table> 
+</div>
+<div class="fxchart" class="container" style="margin-top:2em">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">                       
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Choose Chart Resolution</label>
+                </div>
+                <select [(ngModel)]="pselected" class="custom-select" id="inputGroupSelect01" (change)="setResolution()">
+                    <option *ngFor="let res of resolutions" [value]="res">{{ res }}</option>
+                </select>
+            </div>                     
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
+<app-vote-charts [parse_interval]="parse_interval" ></app-vote-charts>

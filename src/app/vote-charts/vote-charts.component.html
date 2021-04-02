@@ -1,0 +1,34 @@
+
+<div id="charts"  class="container-fluid vertical-scrollable">
+    <h2 class="text-center">Use the Table Paging buttons Above, to Advance Charts Below.  Click a Page Number Twice to Change Chart.</h2>
+    <div class="row"  placement="top" ngbTooltip="Scroll through several charts below!">
+        <div id="flinec" class="col-sm-12">
+            <h3 class="text-center">Total Votes</h3>
+            <canvas #votesLineChart id="lineChart" class="achart"></canvas>
+        </div>
+        <div id="flinecnew" class="col-sm-12">
+            <h3 class="text-center" >Vote Spikes</h3>
+            <canvas #spikesLineChart id="newlineChart" class="achart"></canvas>
+        </div>
+        <div id="fpiec" class="col-sm-12">
+            <h3 class="text-center">Total Votes Pie Chart</h3>
+            <canvas #pieChart id="pieChart" class="achart"></canvas>
+        </div>
+        <div id="fstackedc" class="col-sm-12">
+            <h3 class="text-center">Vote Totals per Time Interval</h3>>
+            <canvas #stackedChart id="stackedChart" class="achart"></canvas>
+        </div>
+        <div id="flinecdiff" class="col-sm-12">
+            <h3 class="text-center">Gains or Losses</h3>
+            <canvas #diffLineChart id="diffLineChart" class="achart"></canvas>
+        </div>
+        <div id="fstackedcbin" class="col-sm-12">
+            <h3 class="text-center">Gains per Gain Size</h3>
+            <canvas #binStackedChart id="binStackedChart" class="achart"></canvas>
+        </div>  
+        <div id="flinecper" class="col-sm-12">
+            <h3 class="text-center">Percent Remaining Vote</h3>
+            <canvas #perLineChart id="perLineChart" class="achart"></canvas>
+        </div>
+    </div>
+</div>

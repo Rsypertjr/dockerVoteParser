@@ -1,0 +1,23 @@
+<div id="tophdr" class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="input-group mb-3" style="margin-top:2em">
+        
+            <div>
+                <label class="input-group-text" for="inputGroupSelect01">Choose State</label>
+            </div>
+            <select [(ngModel)]="state_selected" class="custom-select" id="inputGroupSelect01" (change)="selectChange()">
+                <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+            </select>
+      
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Sort By</label>
+            </div>
+            <select [(ngModel)]="selected_sort" class="custom-select" id="inputGroupSelect01" (change)="selectSort()" >
+                <option *ngFor="let sort of sorts" [value]="sort" >{{ sort }}</option>
+            </select>
+        </div> 
+    </div>
+    <div class="col-lg-2"></div>       
+</div>     
+<app-votes-table [state_selected]="state_selected" [selected_sort]="selected_sort"></app-votes-table>
