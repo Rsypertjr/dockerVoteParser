@@ -23,6 +23,7 @@ export class VotesTableComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: DataTables.Settings = {};
   dtInstance: DataTables.Api;
+  vm:any;
 
   thePresVotes: any[];
   theVotes: any[];
@@ -239,59 +240,82 @@ setResolution():void{
 }
 
   
-  render_table(votes):void{    
+  render_table(state):void{    
    
-      // Calling the DT trigger to manually render the table      
-      this.dtTrigger.next(); 
-      this.voteCharts.votesLineChart(votes,this.parse_interval,this.selected_index);
-      this.voteCharts.spikesLineChart(votes,this.parse_interval,this.selected_index);
-      this.voteCharts.diffLineChart(votes,this.parse_interval,this.selected_index);
-      this.voteCharts.perLineChart(votes,this.parse_interval,this.selected_index); 
-      this.voteCharts.pieChart(votes,this.parse_interval,this.selected_index); 
-      this.voteCharts.stackedBarChart(votes,this.parse_interval,this.selected_index);
-     
-      this.getPageInfo().subscribe((res:any) => {
-        console.log("Should be Page Info:", res.page.info());
-        this.selected_index = res.page.info().page+1;
-        this.number_pages = res.page.info().pages;
-        this.voteCharts.fill_votebins(this.number_pages); 
-        this.voteCharts.stackedBarChart2(votes,this.parse_interval,this.selected_index); 
+      this.state_selected = state;
+      const voterRows$ = this.getState.get_state(this.state_selected).pipe(this.getVotes);
+      voterRows$.subscribe((res:any) => {   
+         this.thePresVotes = res; 
         
-      });
+         this.getPageInfo().subscribe((res:any) => {
+            res.dtInstance.destroy();     
+            this.dtTrigger.next();  
+           this.selected_index = res.page.info().page;
+           this.voteCharts.votesLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
+           this.voteCharts.spikesLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
+           this.voteCharts.diffLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
+           this.voteCharts.perLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
+           this.voteCharts.pieChart(this.thePresVotes,this.parse_interval,this.selected_index);
+           this.voteCharts.stackedBarChart(this.thePresVotes,this.parse_interval,this.selected_index);
+           this.getPageInfo().subscribe((res:any) => {
+             this.selected_index = res.page.info().page;        
+             this.number_pages = res.page.info().pages;
+             this.voteCharts.fill_votebins(this.number_pages);
+             this.voteCharts.stackedBarChart2(this.thePresVotes,this.parse_interval,this.selected_index);
+           });   
+          });
+        });
 
   }
 
-  rerender(votes,state): void {  
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      stateSave:false
-    };
-   
-        
+  rerender(state): void {    
     this.dataTableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
-      dtInstance.destroy();      
-      this.dtTrigger.next(); 
-      
-      this.thePresVotes = votes; 
-      this.getPageInfo().subscribe((res:any) => {
-        this.selected_index = res.page.info().page;
-        this.voteCharts.votesLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
-        this.voteCharts.spikesLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
-        this.voteCharts.diffLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
-        this.voteCharts.perLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
-        this.voteCharts.pieChart(this.thePresVotes,this.parse_interval,this.selected_index);
-        this.voteCharts.stackedBarChart(this.thePresVotes,this.parse_interval,this.selected_index);
+      dtInstance.destroy();     
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 10,
+        stateSave:false,
+        responsive:true,
+           
+        drawCallback: () => {        
+            this.elementRef.nativeElement.querySelector("a[class^='paginate_button'][class$='next']")        
+              .addEventListener('click', this.onClick.bind(this));
+            this.elementRef.nativeElement.querySelector('.paginate_button.previous')        
+              .addEventListener('click', this.onClick.bind(this));  
+            this.elementRef.nativeElement.querySelector('.paginate_button.last')        
+              .addEventListener('click', this.onLast.bind(this));  
+            this.elementRef.nativeElement.querySelector('.paginate_button.first')        
+              .addEventListener('click', this.onFirst.bind(this));   
+            this.elementRef.nativeElement.querySelector('.paginate_button.current')        
+              .addEventListener('click', this.onButton.bind(this)); 
+          }
+      };   
+    
+      this.raceData = {
+        "raceId": "",
+        "raceSlug":"", 
+        "raceUrl":""
+      };
+     // this.get_votes('initial');
+     const voterRows$ = this.getState.get_state(this.state_selected).pipe(this.getVotes);
+     voterRows$.subscribe((res:any) => {   
+        this.thePresVotes = res; 
+        this.dtTrigger.next();  
         this.getPageInfo().subscribe((res:any) => {
-          this.selected_index = res.page.info().page;        
+          this.selected_index = res.page.info().page;
           this.number_pages = res.page.info().pages;
+          this.voteCharts.votesLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
+          this.voteCharts.spikesLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
+          this.voteCharts.diffLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
+          this.voteCharts.perLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
+          this.voteCharts.pieChart(this.thePresVotes,this.parse_interval,this.selected_index);
+          this.voteCharts.stackedBarChart(this.thePresVotes,this.parse_interval,this.selected_index);
           this.voteCharts.fill_votebins(this.number_pages);
-          this.voteCharts.stackedBarChart2(this.thePresVotes,this.parse_interval,this.selected_index);
+          this.voteCharts.stackedBarChart2(this.thePresVotes,this.parse_interval,this.selected_index);        
         });  
-      });        
-      
-    });
+      });   
+    });   
   }
 
   // Convert Promise into Observable
@@ -299,16 +323,25 @@ setResolution():void{
     return from(this.dataTableElement.dtInstance.then((dtInstance: DataTables.Api) => dtInstance)).pipe(map((res) => res));
   }
 
+  callback(json):void {
+      console.log(json);
+  }
+
+  getTableInfo():any{
+    
+  }
+
 
   ngOnInit(): void {
    
       this.pselected = '5 Times';
       this.selected_index = 1;
-      
+      const vm = this;
       this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
         stateSave:false,
+        responsive:true,
            
         drawCallback: () => {        
             this.elementRef.nativeElement.querySelector("a[class^='paginate_button'][class$='next']")        

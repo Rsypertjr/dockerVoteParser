@@ -43,7 +43,8 @@ export class GetVotesComponent implements OnInit {
     const voterRows$ = this.getState.get_state(this.state).pipe(this.votesTable.getVotes);
     voterRows$.subscribe((res:any) => {   
       this.thePresVotes = res;
-      this.votesTable.rerender(this.thePresVotes, this.state);  
+      this.votesTable.rerender(this.state);
+      //this.votesTable.render_table(this.state);  
      }); 
   }
   
@@ -52,7 +53,8 @@ export class GetVotesComponent implements OnInit {
     const voterRows$ = this.getState.get_state(this.state).pipe(this.votesTable.getVotes);
     voterRows$.subscribe((res:any) => {   
       this.thePresVotes = res;
-      this.votesTable.rerender(this.thePresVotes, this.state);  
+      this.votesTable.rerender(this.state);
+      //this.votesTable.render_table(this.state);  
      }); 
   }
 
