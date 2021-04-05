@@ -29,9 +29,7 @@ export class VotesTableComponent implements OnDestroy, OnInit {
   theVotes: any[];
   @Output() selected_index:number;
   @Output() parse_interval:number;
-    
-  @Input() selected_sort:string;
-  @Input() state_selected:string;
+ 
     
   constructor(private getState: GetstateService, private parseVotes: ParseVotesService, private elementRef: ElementRef, private router: Router) { }
  
@@ -94,7 +92,7 @@ setResolution():void{
   this.voteCharts.stackedBarChart(this.thePresVotes,this.parse_interval,this.selected_index); 
   this.getPageInfo().subscribe((res:any) => {
     console.log("Should be Page Info:", res.page.info());
-    this.selected_index = res.page.info().page+1;
+    this.selected_index = res.page.info().page;
     this.number_pages = res.page.info().pages;
     this.voteCharts.fill_votebins(this.number_pages);
     this.voteCharts.stackedBarChart2(this.thePresVotes,this.parse_interval,this.selected_index);    
@@ -108,33 +106,44 @@ setResolution():void{
   }
 
   drawCharts(votes):void{
+
     this.voteCharts.votesLineChart(votes,this.parse_interval,this.selected_index);
     this.voteCharts.spikesLineChart(votes,this.parse_interval,this.selected_index);
     this.voteCharts.diffLineChart(votes,this.parse_interval,this.selected_index);
     this.voteCharts.perLineChart(votes,this.parse_interval,this.selected_index);
     this.voteCharts.pieChart(votes,this.parse_interval,this.selected_index);
     this.voteCharts.stackedBarChart(votes,this.parse_interval,this.selected_index);
-    this.voteCharts.fill_votebins(this.number_pages);
-    this.voteCharts.stackedBarChart2(votes,this.parse_interval,this.selected_index);
+    this.getPageInfo().subscribe((res:any) => {
+      this.selected_index = res.page.info().page;
+      let parse_int = this.parse_interval;
+      this.number_pages = res.page.info().pages;
+      this.voteCharts.fill_votebins(this.number_pages);
+      this.voteCharts.stackedBarChart2(votes,parse_int,this.selected_index);
+    });
 
   }
 
  
-  rerender(): void {    
-
-    this.dataTableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next(); 
-      this.voteCharts.votesLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
-      this.voteCharts.spikesLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
-      this.voteCharts.diffLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
-      this.voteCharts.perLineChart(this.thePresVotes,this.parse_interval,this.selected_index);
-      this.voteCharts.pieChart(this.thePresVotes,this.parse_interval,this.selected_index);
-      this.voteCharts.stackedBarChart(this.thePresVotes,this.parse_interval,this.selected_index);
-      this.voteCharts.fill_votebins(this.number_pages);
-      this.voteCharts.stackedBarChart2(this.thePresVotes,this.parse_interval,this.selected_index);
-
-    });
+  rerender(votes): void {    
+      let selected_indx = this.selected_index;
+      let parse_int = this.parse_interval;
+      this.dataTableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+        this.dtTrigger.next();
+        this.voteCharts.votesLineChart(votes,parse_int,selected_indx);
+        this.voteCharts.spikesLineChart(votes,parse_int,selected_indx);
+        this.voteCharts.diffLineChart(votes,parse_int,selected_indx);
+        this.voteCharts.perLineChart(votes,parse_int,selected_indx);
+        this.voteCharts.pieChart(votes,parse_int,selected_indx);
+        this.voteCharts.stackedBarChart(votes,parse_int,selected_indx);
+        this.getPageInfo().subscribe((res:any) => {
+          this.selected_index = res.page.info().page;
+          this.number_pages = res.page.info().pages;
+          this.voteCharts.fill_votebins(this.number_pages);
+          this.voteCharts.stackedBarChart2(votes,parse_int,this.selected_index);
+        });
+      });
+    
   }
 
   // Convert Promise into Observable

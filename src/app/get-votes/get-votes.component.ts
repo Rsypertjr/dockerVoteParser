@@ -15,7 +15,7 @@ import { VoteChartsComponent } from '../vote-charts/vote-charts.component';
 })
 export class GetVotesComponent implements OnInit {
   @ViewChild(VotesTableComponent) votesTable: VotesTableComponent; 
-  @Output() selected_sort:string;
+  selected_sort:string;
   @Input() selected_index:number;
   @Output() thePresVotes: any[];  
 
@@ -183,7 +183,7 @@ export class GetVotesComponent implements OnInit {
     const voterRows$ = this.getState.get_state(this.state).pipe(this.getVotes);
     voterRows$.subscribe((res:any) => {   
       this.thePresVotes = res;
-      this.votesTable.rerender();
+      this.votesTable.rerender(res);
       //this.votesTable.render_table(this.state);  
      }); 
   }
@@ -193,7 +193,7 @@ export class GetVotesComponent implements OnInit {
     const voterRows$ = this.getState.get_state(this.state).pipe(this.getVotes);
     voterRows$.subscribe((res:any) => {   
       this.thePresVotes = res;
-      this.votesTable.rerender();
+      this.votesTable.rerender(res);
       //this.votesTable.render_table(this.state);  
      }); 
   }
