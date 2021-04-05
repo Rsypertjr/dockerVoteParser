@@ -19,5 +19,14 @@
         </div> 
     </div>
     <div class="col-lg-2"></div>       
+</div>    
+<div class="container-fluid">
+    <div class="jumbotron text-center" >     
+        <h1>2020 Presidential Election Parser</h1> 
+        <h2>Race Data:</h2>   
+        <p>{{ raceData.raceId }}</p>
+        <p>{{ raceData.raceSlug }}</p>
+        <p>{{ raceData.raceUrl }}</p>
+    </div>        
 </div>     
-<app-votes-table [state_selected]="state_selected" [selected_sort]="selected_sort"></app-votes-table>
+<app-votes-table [state_selected]="state_selected" [selected_sort]="selected_sort" [thePresVotes]="thePresVotes"></app-votes-table>

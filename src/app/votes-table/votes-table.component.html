@@ -1,15 +1,6 @@
-<div class="container-fluid">
-    <div class="jumbotron text-center" >     
-        <h1>2020 Presidential Election Parser</h1> 
-        <h2>Race Data:</h2>   
-        <p>{{ raceData.raceId }}</p>
-        <p>{{ raceData.raceSlug }}</p>
-        <p>{{ raceData.raceUrl }}</p>
-    </div>        
-</div>     
 <div class="loader"></div>  
 <div id = "results_table">   
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="example" class="display row-border hover"  style='width:80%;'>
+    <table #dataTableElement datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="example" class="display row-border hover"  style='width:80%;'>
         <thead> 
             <tr>
                 <th class="th-sm" *ngFor="let header of headers">{{header}}</th>

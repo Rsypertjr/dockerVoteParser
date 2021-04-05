@@ -25,9 +25,9 @@ export class VoteChartsComponent implements OnInit {
   total_slices:any[];
 
   
-  @Input() thePresVotes: any[];
+  thePresVotes: any[];
   @Input() parse_interval:number;
-  @Input() selected_index:number;
+  selected_index:number;
 
   date_headers:any[];
   dateheaders_store:any[];
