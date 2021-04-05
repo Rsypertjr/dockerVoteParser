@@ -142,6 +142,17 @@ setResolution():void{
           this.voteCharts.fill_votebins(this.number_pages);
           this.voteCharts.stackedBarChart2(votes,parse_int,this.selected_index);
         });
+        this.elementRef.nativeElement.querySelector('.paginate_button.next')        
+        .addEventListener('click', this.onClick.bind(this));
+        this.elementRef.nativeElement.querySelector('.paginate_button.previous')        
+          .addEventListener('click', this.onClick.bind(this));  
+        this.elementRef.nativeElement.querySelector('.paginate_button.last')        
+          .addEventListener('click', this.onLast.bind(this));  
+        this.elementRef.nativeElement.querySelector('.paginate_button.first')        
+          .addEventListener('click', this.onFirst.bind(this));   
+        this.elementRef.nativeElement.querySelector('.paginate_button.current')        
+          .addEventListener('click', this.onButton.bind(this));           
+
       });
     
   }
@@ -172,7 +183,7 @@ setResolution():void{
         responsive:true,
            
         drawCallback: () => {        
-            this.elementRef.nativeElement.querySelector("a[class^='paginate_button'][class$='next']")        
+            this.elementRef.nativeElement.querySelector('.paginate_button.next')        
               .addEventListener('click', this.onClick.bind(this));
             this.elementRef.nativeElement.querySelector('.paginate_button.previous')        
               .addEventListener('click', this.onClick.bind(this));  
