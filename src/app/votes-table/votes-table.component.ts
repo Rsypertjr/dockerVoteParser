@@ -124,8 +124,7 @@ setResolution():void{
   }
 
  
-  rerender(votes): void {    
-      alert("gets here");
+  rerender(votes): void { 
       let selected_indx = this.selected_index;
       let parse_int = this.parse_interval;
       this.dataTableElement.dtInstance.then((dtInstance: DataTables.Api) => {
