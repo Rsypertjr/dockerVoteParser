@@ -182,6 +182,8 @@ setResolution():void{
         pageLength: 10,
         stateSave:false,
         responsive:true,
+      
+        
            
         drawCallback: () => {        
             this.elementRef.nativeElement.querySelector('.paginate_button.next')        

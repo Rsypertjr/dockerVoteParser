@@ -279,18 +279,27 @@ votesLineChart(votes,parse_interval,selected_index):void{
 
     // Notice the scaleLabel at the same level as Ticks
     var options = {
-    scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    },
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Vote Totals',
-                        fontSize: 20 
-                    }
-                }]            
-            }  
+        responsive:true,
+        scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },                   
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Vote Totals',
+                            fontSize: 20 
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }]        
+                } ,
+                
     };
 
     if(this.myLineChart){
@@ -426,7 +435,14 @@ spikesLineChart(votes,parse_interval,selected_index):void{
                         labelString: 'New Vote Totals',
                         fontSize: 20 
                     }
-                }]            
+                }],
+                xAxes: [{
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]                    
             }  
     };
 
@@ -515,7 +531,14 @@ spikesLineChart(votes,parse_interval,selected_index):void{
                         labelString: 'Votes Gain/Loss',
                         fontSize: 20 
                     }
-                }]            
+                }],
+                xAxes: [{
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]                    
             }  
     };
 
@@ -605,7 +628,14 @@ perLineChart(votes,parse_interval,selected_index):void{
                         labelString: 'Percent of Remaining Votes',
                         fontSize: 20 
                     }
-                }]            
+                }],
+                xAxes: [{
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]                    
             }  
     };
 
