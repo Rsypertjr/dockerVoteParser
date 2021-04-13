@@ -9,8 +9,6 @@ import { DataTablesModule } from "angular-datatables";
 import { FormsModule } from '@angular/forms';
 import { GetVotesComponent } from './get-votes/get-votes.component';
 import { VoteChartsComponent } from './vote-charts/vote-charts.component';
-import { LinechartComponent } from './linechart/linechart.component';
-import { TestChartsjsComponent } from './test-chartsjs/test-chartsjs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,9 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     VotesTableComponent,
     GetVotesComponent,
-    VoteChartsComponent,
-    LinechartComponent,
-    TestChartsjsComponent
+    VoteChartsComponent
   ],
   imports: [
     BrowserModule,
