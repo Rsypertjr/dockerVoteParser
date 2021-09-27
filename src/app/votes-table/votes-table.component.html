@@ -33,7 +33,7 @@
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">Choose Chart Resolution</label>
                 </div>
-                <select [(ngModel)]="pselected" class="custom-select" id="inputGroupSelect01" (change)="setResolution()">
+                <select class="custom-select" id="inputGroupSelect01" (change)="setResolution()">
                     <option *ngFor="let res of resolutions" [value]="res">{{ res }}</option>
                 </select>
             </div>                     

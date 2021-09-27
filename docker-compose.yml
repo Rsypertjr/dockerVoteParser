@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+
+  angular-votes:
+    container_name: angular-votes
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '4202:4200'
+
+# Docker-compose Run:: docker-compose up -d --build
+# Docker-compose Karma test:: docker-compose exec angular-votes ng test --watch=false
+# Docker-compose Protractor test:: docker-compose exec angular-votes ng e2e --port 4202

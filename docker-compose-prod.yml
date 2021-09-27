@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+
+  angular-votes-prod:
+    container_name: angular-votes-prod
+    build:
+      context: .
+      dockerfile: Dockerfile-prod
+    ports:
+      - '88:80'
+
+
+# Docker Compose Production Build:: docker-compose -f docker-compose-prod.yml up -d --build

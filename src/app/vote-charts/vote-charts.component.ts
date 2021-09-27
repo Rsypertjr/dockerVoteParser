@@ -81,7 +81,7 @@ export class VoteChartsComponent implements OnInit {
 
 
 
-  constructor(private parseVotesService:ParseVotesService, private window:Window) { }
+  constructor(private parseVotesService:ParseVotesService) { }
 
 
   fill_votebins(number_pages):void {
@@ -834,9 +834,9 @@ stackedBarChart2(votes,parse_interval,selected_index):void{
   ngOnInit(): void {    
       
     this.vote_bins = [];
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]');
-      });
+   // $(document).ready(function(){
+     //   $('[data-toggle="tooltip"]');
+   //   });
     
   }
 
